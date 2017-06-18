@@ -11,7 +11,7 @@
 
         self.getTasks=function () {
 
-            var promise1=$http.get('http://localhost:8080/tasks');
+            var promise1=$http.get('http://localhost:9090/tasks');
 
             var promise2=promise1.then(function (response) {
 
@@ -22,7 +22,7 @@
 
         self.saveTask=function (userData) {
             console.log(userData);
-            return $http.post('http://localhost:8080/tasks/',userData)
+            return $http.post('http://localhost:9090/tasks/',userData)
                 .then(function (response) {
                     console.log(response)
                 });
@@ -30,15 +30,15 @@
 
         self.updateTask=function (userData) {
             console.log(userData);
-            return $http.put('http://localhost:8080/tasks/'+userData.id,userData)
+            return $http.put('http://localhost:9090/tasks/'+userData.id,userData)
                 .then(function (response) {
                     console.log(response)
                 });
         };
 
-        self.deleteTask=function (id) {
-            console.log(id);
-            return $http.put('http://localhost:8080/tasks/'+id)
+        self.deleteTask=function (userData) {
+            console.log(userData);
+            return $http.delete('http://localhost:9090/tasks/'+userData.id,userData)
                 .then(function (response) {
                     console.log(response)
                 });

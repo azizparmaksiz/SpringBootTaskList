@@ -16,13 +16,17 @@
        self.newTask=function () {
            self.MODE=modeSrvc.MODE_NEW;
            self.selected=undefined;
+           self.successMessage=undefined;
+           self.errorMessage=undefined;
        };
 
        self.home=function () {
+           self.successMessage=undefined;
+           self.errorMessage=undefined;
            self.MODE=modeSrvc.MODE_HOME;
        };
 
-       self.getTasks=function () {
+       self. getTasks=function () {
            DataService.getTasks()
                .then(function (data) {
                    self.MODE=modeSrvc.MODE_TASKS;
@@ -30,40 +34,41 @@
                });
        };
 
-       self.saveSelected=function () {
-    //console.log( self.contacts);
-           DataService.saveTask( self.selected).then(function () {
-               self.successMessage="Data successfully saved";
+       self. saveSelected = function () {
+
+
+           //console.log( self.contacts);
+           DataService.saveTask(self.selected).then(function () {
                self.reloadContent();
-           },function () {
-               self.errorMessage="Error Occurred ";
+               self.successMessage = "Data successfully saved";
+           }, function () {
+               self.errorMessage = "Error Occurred ";
            });
        };
 
        self.reloadContent =function () {
-           self.getTasks();
-           self.first='';
-           self.last='';
+           self. getTasks();
        };
 
 
-       self.updateSelected=function () {
-           //console.log( self.tasks);
+       self. updateSelected = function () {
+           console.log( "update");
            DataService.updateTask(self.selected).then(function () {
-               self.successMessage="Data successfully updated";
                self.reloadContent();
-           },function () {
-               self.errorMessage="Error Occurred ";
+               self.successMessage = "Data successfully updated";
+           }, function () {
+               self.errorMessage = "Error Occurred ";
            });
        };
 
-       self.deleteTask=function (id) {
+       self.deleteTask=function (index) {
            //console.log( self.tasks);
-           DataService.deleteTask(id).then(function () {
-               self.successMessage="Data successfully deleted";
+           DataService.deleteTask(self.tasks[index]).then(function () {
                self.reloadContent();
+               self.successMessage="Data successfully deleted";
            },function () {
                self.errorMessage="Error Occurred ";
+               self.successMessage=undefined;
            });
        };
 
@@ -71,6 +76,8 @@
        self.setSelected   =function (index) {
            self.selected=self.tasks[index];
            self.MODE=modeSrvc.MODE_UPDATE;
+           self.successMessage=undefined;
+           self.errorMessage=undefined;
        }
    }
 

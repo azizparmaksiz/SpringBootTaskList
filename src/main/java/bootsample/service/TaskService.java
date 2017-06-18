@@ -22,9 +22,7 @@ public class TaskService {
 	
 	public List<Task> findAll(){
 		List<Task> tasks = new ArrayList<>();
-		for(Task task : taskRepository.findAll()){
-			tasks.add(task);
-		}
+		taskRepository.findAll().forEach(task -> tasks.add(task));
 		return tasks;
 	}
 	
@@ -43,4 +41,6 @@ public class TaskService {
 	public void updateTask(int id, Task task) {
 		taskRepository.save(task);
 	}
+
+
 }

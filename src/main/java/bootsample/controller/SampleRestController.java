@@ -25,6 +25,11 @@ public class SampleRestController {
 		return taskService.findAll();
 	}
 
+	@RequestMapping(value = "/tasks/{id}",method = RequestMethod.GET)
+	public Task getTask(@PathVariable("id") int id){
+		return taskService.findTask(id);
+	}
+
 	@RequestMapping(value = "/tasks",method = RequestMethod.POST)
 	public void saveTask(@RequestBody Task task){
 		task.setDateCreated(new Date());
@@ -36,7 +41,7 @@ public class SampleRestController {
 		taskService.updateTask(id,task);
 	}
 
-	@RequestMapping("/tasks/{id}")
+	@RequestMapping(value = "/tasks/{id}",method = RequestMethod.DELETE)
 	public void deleteTask(@PathVariable("id") int id){
 		taskService.delete(id);
 	}
